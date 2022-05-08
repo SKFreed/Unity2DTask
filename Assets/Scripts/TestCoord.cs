@@ -62,6 +62,8 @@ public class TestCoord : MonoBehaviour
     }
     public void MoveCube()
     {
+        //Vector3 end = X1.position + (X1.position - X0Y0.position);
+
         Vector3 X = Coord.GetX(X0Y0.position, X1.position + (X1.position - X0Y0.position), tx);
         Vector3 Y = Coord.GetY(X0Y0.position, Y1.position + (Y1.position - X0Y0.position), ty);
         end = Coord.GetPoint(X, Y);
