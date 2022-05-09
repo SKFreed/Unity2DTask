@@ -79,16 +79,14 @@ public class InputSave : MonoBehaviour
     public void LoadFromJson()
     {
         item = JsonUtility.FromJson<Item>(File.ReadAllText(Application.streamingAssetsPath + "/DataJson.json"));        
-        for (int i = 0; i < item.items.Count; i += 2)
+        for (int i = 2; i < item.values.Count; i += 2)
         {
             float x;
             float y;
             try
-            {
-                string xstring = item.items[i];
-                string ystring = item.items[i+1];                
-                x = float.Parse(xstring);
-                y = float.Parse(ystring);
+            {                          
+                x = item.values[i];
+                y = item.values[i + 1];
                 if (test != null)
                 {
                     Debug.Log(x + " " + y);
@@ -108,23 +106,25 @@ public class InputSave : MonoBehaviour
         }
     }
     public void SaveToJson()
-    {
-        List<string> list = new List<string>();
-        for(int i = 0; i < input.Count; i++)
+    {       
+        List<float> list2 = new List<float>();
+        for (int i = 0; i < test.Points.Count; i++)
         {
-            list.Add(input[i].text);
+            list2.Add(test.Points[i].x);
+            list2.Add(test.Points[i].y);
         }
-        item = new Item(list);
-        
+        item = new Item(list2);
+
+
         File.WriteAllText(Application.streamingAssetsPath + "/DataJson.json", JsonUtility.ToJson(item));
     }
     [System.Serializable]
     public class Item 
     {        
-        public List<string> items; 
-        public Item(List<string> list)
+        public List<float> values;
+        public Item(List<float> val)
         {
-            items = list; 
+            values = val;
         }
     }
 }
